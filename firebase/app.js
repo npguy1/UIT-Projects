@@ -10,9 +10,12 @@ var config = {
 firebase.initializeApp(config);
 
 // Get DOM elements
-const txtEmail = document.getElementById("txtEmail").value;
-const txtPassword = document.getElementById("txtPassword").value;
-const txtName = document.getElementById("txtName").value;
+const txtEmail = document.getElementById("txtEmail");
+const txtPassword = document.getElementById("txtPassword");
+
+const txtNewName = document.getElementById("txtNewName");
+const txtNewEmail = document.getElementById("txtNewEmail");
+const txtNewPassword = document.getElementById("txtNewPassword");
 
 const btnSignIn = document.getElementById("btnSignIn");
 const btnSignUp = document.getElementById("btnSignUp");
@@ -24,20 +27,24 @@ const NewUserDiv = document.getElementById("NewUserDiv");
 const loggedInDiv = document.getElementById("loggedInDiv");
 
 //Add SignIn Event
-btnSignIn.addEventListener("click", cb => {
-  SignIn(txtEmail, txtPassword);
-  console.log(txtEmail + "---" + txtPassword);
+btnSignIn.addEventListener("click", e => {
+  var email = txtEmail.value;
+  var password = txtPassword.value;
+  SignIn(email, password);
+  console.log(email + "---" + password);
 });
 
 //Add SignUp Event
-btnSignUp.addEventListener("click", cb => {
-  console.log(txtEmail + "---" + txtPassword);
-
-  SignUp(txtEmail, txtPassword);
+btnSignUp.addEventListener("click", e => {
+  var email = txtNewEmail.value;
+  var password = txtNewPassword.value;
+  var username = txtNewName.value;
+  console.log(email + "---" + password + "---" + username);
+  SignUp(email, password, username);
 });
 
 //Add SignOut Event
-btnSignOut.addEventListener("click", cb => {
+btnSignOut.addEventListener("click", e => {
   firebase
     .auth()
     .signOut()
@@ -68,9 +75,6 @@ linkSignIn.addEventListener("click", cb => {
   loggedOutDiv.classList.remove("hide");
 });
 
-
-
-
 // Sign In Function
 function SignIn(email, password) {
   firebase
@@ -84,22 +88,22 @@ function SignIn(email, password) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(txtEmail + "---" + txtPassword);
+      console.log(email + "---" + password);
       console.log(errorMessage);
-      
+
       // ...
     });
 }
 
 // Sign Up Function
-function SignUp(email, password) {
+function SignUp(email, password, username) {
   // TODO : Add email validation
 
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(res => {
-      addUser(txtName);
+      addUser(username);
       console.log(res);
       alert("User signed up successfully");
     })
@@ -107,9 +111,9 @@ function SignUp(email, password) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(txtEmail + "---" + txtPassword);
+      console.log(email + "---" + password + "---" + username);
       console.log(errorMessage);
-      
+
       // ...
     });
 }
@@ -135,14 +139,11 @@ function addUser(userName) {
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
     // User is signed in.
-    console.log(user);
+    //console.log(user);
 
     // Adding user information
-    var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified;
-
-    document.getElementById("userinfo").innerHTML =
-      user.email + "    " + user.uid;
+    getUser();
+ 
 
     // Hiding Sign In form
     loggedOutDiv.classList.add("hide");
@@ -160,3 +161,22 @@ firebase.auth().onAuthStateChanged(user => {
     loggedInDiv.classList.add("hide");
   }
 });
+
+// Get individual user name by uid 
+function getUser() {
+  var user = firebase.auth().currentUser;
+  return firebase
+    .database()
+    .ref("user")
+    .once("value")
+    .then(function(snapshot) {
+      var allUsers = snapshot.val();
+      var username = allUsers[user.uid].uname;
+
+      document.getElementById("userinfo").innerHTML =  username;
+
+     
+      // ...
+    });
+    
+}
