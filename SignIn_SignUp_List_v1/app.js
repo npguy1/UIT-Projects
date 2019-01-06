@@ -58,7 +58,7 @@ btnSignOut.addEventListener("click", e => {
 });
 
 //SignUp Link Event
-linkSignUp.addEventListener("click", e => {
+linkSignUp.addEventListener("click", cb => {
   // Hiding Sign In form
   loggedOutDiv.classList.add("hide");
 
@@ -67,7 +67,7 @@ linkSignUp.addEventListener("click", e => {
 });
 
 //SignIn Link Event
-linkSignIn.addEventListener("click", e => {
+linkSignIn.addEventListener("click", cb => {
   // Hide Sign Up form Div
   NewUserDiv.classList.add("hide");
 
@@ -169,16 +169,6 @@ firebase.auth().onAuthStateChanged(user => {
 function getUser() {
   var user = firebase.auth().currentUser;
   var uid = user.uid;
-  
-/*   var userRef = firebase.database().ref('/user/' + uid);
-      userRef.on('value', function(snapshot) {
-
-      var loggedInUser = snapshot.val();
-      var username = loggedInUser.uname;
-
-      document.getElementById("userinfo").innerHTML =  username;
-}); */
-  
   return firebase
     .database()
     //Node level user and fetching record where node key = uid
@@ -188,12 +178,18 @@ function getUser() {
       var loggedInUser = snapshot.val();
       var username = loggedInUser.uname;
 
+     /*  .ref("user")
+      .once("value")
+      .then(function(snapshot) {
+        var allUsers = snapshot.val();
+        var username = allUsers[user.uid].uname;
+ */
       document.getElementById("userinfo").innerHTML =  username;
     
     })
     .catch(function(error) {
       console.error('Error reading data from Realtime Database:', error);
-    }); 
+    });
     
 }
 
@@ -216,6 +212,8 @@ function getUserList() {
         var childKey = childSnapshot.key;
         var childData = childSnapshot.val();
 
+        console.log(childSnapshot.val().length);
+
         console.log(childKey +" "+ childData.uname + " " +childData.email);
 
         //creating table row 
@@ -231,21 +229,6 @@ function getUserList() {
         td.appendChild(document.createTextNode(childSnapshot.val()[cellData]))
         tr.appendChild(td);
         }
-
-        var td = document.createElement("td");
-        var btn = document.createElement("BUTTON");
-        var btnTxt = document.createTextNode("Delete");
-        btn.className = "btnDelete";
-        btn.id = childKey ;
-       // btn.onclick = dynamicEvent; // Attach the event!
-
-        /* var delBtn = document.getElementById(childKey);
-        delBtn.addEventListener("click", deleteUser); */
-        //document.getElementById(btn.id).addEventListener("click", deleteUser);
-        
-        btn.appendChild(btnTxt);
-        td.appendChild(btn);
-        tr.appendChild(td);
       
       //Adding rows to table by id
       var table = document.getElementById("dataListTable");
@@ -261,54 +244,4 @@ function getUserList() {
     });
     
 }
-
-
-// Get the element, add a click listener...
-document.getElementById("dataListTable").addEventListener("click", function(e) {
-	// e.target is the clicked element!
-	// If it was a butten item with btnDelete class
-	if(e.target && e.target.className == "btnDelete") {
-    // Button item found!  Output the ID!
-   
-    console.log("Button item ", e.target.id.replace("post-", ""), " was clicked!");
-
-  /*   var selectedUser = e.target.id;
-
-    var admin = require('firebase-admin');
-
-    admin.auth().deleteUser(selectedUser)
-  .then(function() {
-    console.log("Successfully deleted user");
-  })
-  .catch(function(error) {
-    console.log("Error deleting user:", error);
-  });
- */
-
-
-/*     var user = firebase.auth().delete(selectedUser)
-    user.delete().then(function() {
-      // User deleted.
-      console.log("user deleted succesfully");
-    }).catch(function(error) {
-      // An error happened.
-      console.log("Fail to delete user");
-    });
-     */
-  
- 
-
-    // Deleting User from real time databse 
-    return firebase
-    .database()
-    //Node level user and fetching record where nodesl
-    .ref('/user/' + selectedUser  )
-    .ref.remove();
-    //Remove user where by user id
-  
-
-
-	}
-});
-
 
