@@ -53,6 +53,8 @@
     </div>
 
 
+
+
     <div  id="loggedInDiv" class="hide" >
         <h2>Logged In</h2>
         <p>Welcome <span id="userinfo">User</span></p>
@@ -66,19 +68,23 @@
                 <th>User ID</th>
                 <th>Email</th>
                 <th>Name</th>
-                <th>action</th>
+                <th colspan="2">action</th>
             </tr>
-            <tr >
-                    <td>12345</td>
-                    <td>noman@email.com</td>
-                    <td>Noman Khan</td>
-                    <td><button type="button"   id="btnSignOut" value="" >Delete</button></td>
-            </tr> 
+ 
             
         </table>
         
     </div>
     
+
+    <div  id="EditUserDiv" class="" >
+        <h2>Update User</h2>
+        <label>Full Name : </label>
+        <input type="text"  id="txtUpdateName" ><br><br>
+        <button type="button"  id="btnSave">Save Changes</button><br><br>
+    
+    </div>
+
 
     <script src="app.js"></script>
 </body>

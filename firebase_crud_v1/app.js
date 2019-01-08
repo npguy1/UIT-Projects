@@ -17,14 +17,21 @@ const txtNewName = document.getElementById("txtNewName");
 const txtNewEmail = document.getElementById("txtNewEmail");
 const txtNewPassword = document.getElementById("txtNewPassword");
 
+const txtUpdateName = document.getElementById("txtUpdateName");
+
 const btnSignIn = document.getElementById("btnSignIn");
 const btnSignUp = document.getElementById("btnSignUp");
 const btnSignOut = document.getElementById("btnSignOut");
+const btnSave = document.getElementById("btnSave");
+
 const linkSignIn = document.getElementById("linkSignIn");
 const linkSignUp = document.getElementById("linkSignUp");
 const loggedOutDiv = document.getElementById("loggedOutDiv");
 const NewUserDiv = document.getElementById("NewUserDiv");
 const loggedInDiv = document.getElementById("loggedInDiv");
+
+var selectedUser;
+
 
 //Add SignIn Event
 btnSignIn.addEventListener("click", e => {
@@ -42,6 +49,32 @@ btnSignUp.addEventListener("click", e => {
   console.log(email + "---" + password + "---" + username);
   SignUp(email, password, username);
 });
+
+//Add Save Event
+btnSave.addEventListener("click", e => {
+  var userName = txtUpdateName.value;
+
+  updateUser(selectedUser,userName);
+  console.log("User Updated")
+
+});
+
+
+//Add user info in database
+function updateUser(uid,userName) {
+ 
+  firebase
+    .database()
+    //Node level user and asssing user auth uid as key of this record
+    .ref("/user/" + uid)
+    .update({
+      uname: userName
+     })
+    .catch(function(error) {
+      console.error("Error writing new user to Realtime Database:", error);
+    });
+}
+
 
 //Add SignOut Event
 btnSignOut.addEventListener("click", e => {
@@ -126,17 +159,21 @@ function addUser(userName) {
   firebase
     .database()
     //Node level user and asssing user auth uid as key of this record
-    .ref('/user/' + uid)
-   // .child(uid)
+    .ref("/user/" + uid)
+    // .child(uid)
     .set({
       userId: uid,
       email: userEmail,
       uname: userName
     })
     .catch(function(error) {
-      console.error('Error writing new user to Realtime Database:', error);
+      console.error("Error writing new user to Realtime Database:", error);
     });
 }
+
+
+
+
 
 //Add Realtime User listner
 firebase.auth().onAuthStateChanged(user => {
@@ -146,7 +183,6 @@ firebase.auth().onAuthStateChanged(user => {
 
     // Adding user information
     getUser();
- 
 
     // Hiding Sign In form
     loggedOutDiv.classList.add("hide");
@@ -165,12 +201,12 @@ firebase.auth().onAuthStateChanged(user => {
   }
 });
 
-// Get individual user name by uid 
+// Get individual user name by uid
 function getUser() {
   var user = firebase.auth().currentUser;
   var uid = user.uid;
-  
-/*   var userRef = firebase.database().ref('/user/' + uid);
+
+  /*   var userRef = firebase.database().ref('/user/' + uid);
       userRef.on('value', function(snapshot) {
 
       var loggedInUser = snapshot.val();
@@ -178,137 +214,152 @@ function getUser() {
 
       document.getElementById("userinfo").innerHTML =  username;
 }); */
-  
-  return firebase
-    .database()
-    //Node level user and fetching record where node key = uid
-    .ref('/user/' + uid)
-    .once("value")
-    .then(function(snapshot) {
-      var loggedInUser = snapshot.val();
-      var username = loggedInUser.uname;
 
-      document.getElementById("userinfo").innerHTML =  username;
-    
-    })
-    .catch(function(error) {
-      console.error('Error reading data from Realtime Database:', error);
-    }); 
-    
+  return (
+    firebase
+      .database()
+      //Node level user and fetching record where node key = uid
+      .ref("/user/" + uid)
+      .once("value")
+      .then(function(snapshot) {
+        var loggedInUser = snapshot.val();
+        var username = loggedInUser.uname;
+
+        document.getElementById("userinfo").innerHTML = username;
+      })
+      .catch(function(error) {
+        console.error("Error reading data from Realtime Database:", error);
+      })
+  );
 }
 
 getUserList();
 
-// Get all users 
+// Get all users
 function getUserList() {
-
   var columnLenght = 3;
 
-  return firebase
-    .database()
-    //Node level user 
-    .ref('/user/')
-    .once("value")
-    .then(function(snapshot) {
+  return (
+    firebase
+      .database()
+      //Node level user
+      .ref("/user/")
+      .once("value")
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var childKey = childSnapshot.key;
+          var childData = childSnapshot.val();
 
-    
-      snapshot.forEach(function(childSnapshot) {
-        var childKey = childSnapshot.key;
-        var childData = childSnapshot.val();
+          console.log(childKey + " " + childData.uname + " " + childData.email);
 
-        console.log(childKey +" "+ childData.uname + " " +childData.email);
+          //creating table row
+          var tr = document.createElement("tr");
 
-        //creating table row 
-        var tr = document.createElement("tr");
-        
-        //Loop within user node extracting each celldata row by row
-        for (var cellData in childSnapshot.val()) { 
-          
-        //creating table td
-        var td = document.createElement("td");
+          //Loop within user node extracting each celldata row by row
+          for (var cellData in childSnapshot.val()) {
+            //creating table td
+            var td = document.createElement("td");
 
-        //Putting celldata in td one by one  
-        td.appendChild(document.createTextNode(childSnapshot.val()[cellData]))
-        tr.appendChild(td);
-        }
+            //Putting celldata in td one by one
+            td.appendChild(
+              document.createTextNode(childSnapshot.val()[cellData])
+            );
+            tr.appendChild(td);
+          }
 
-        var td = document.createElement("td");
-        var btn = document.createElement("BUTTON");
-        var btnTxt = document.createTextNode("Delete");
-        btn.className = "btnDelete";
-        btn.id = childKey ;
-       // btn.onclick = dynamicEvent; // Attach the event!
+          // Create TD and Update button inside
+          var td = document.createElement("td");
+          var btnu = document.createElement("BUTTON");
+          var btnTxtu = document.createTextNode("Update");
+          btnu.className = "btnUpdate";
+          btnu.id = childKey;
+          btnu.appendChild(btnTxtu);
+          td.appendChild(btnu);
+          tr.appendChild(td);
 
-        /* var delBtn = document.getElementById(childKey);
-        delBtn.addEventListener("click", deleteUser); */
-        //document.getElementById(btn.id).addEventListener("click", deleteUser);
-        
-        btn.appendChild(btnTxt);
-        td.appendChild(btn);
-        tr.appendChild(td);
-      
-      //Adding rows to table by id
-      var table = document.getElementById("dataListTable");
-      //table.innerHTML = "";
-      table.appendChild(tr);
-    
-    
-      });
+          // Creating TD and Delete button inside
+          var td = document.createElement("td");
+          var btn = document.createElement("BUTTON");
+          var btnTxt = document.createTextNode("Delete");
+          btn.className = "btnDelete";
+          btn.id = childKey;
+          btn.appendChild(btnTxt);
+          td.appendChild(btn);
+          tr.appendChild(td);
 
-    })
-    .catch(function(error) {
-      console.error('Error reading data from Realtime Database:', error);
-    });
-    
+          //Adding rows to table by id
+          var table = document.getElementById("dataListTable");
+          //table.innerHTML = "";
+          table.appendChild(tr);
+        });
+      })
+      .catch(function(error) {
+        console.error("Error reading data from Realtime Database:", error);
+      })
+  );
 }
-
 
 // Get the element, add a click listener...
 document.getElementById("dataListTable").addEventListener("click", function(e) {
-	// e.target is the clicked element!
-	// If it was a butten item with btnDelete class
-	if(e.target && e.target.className == "btnDelete") {
+  // e.target is the clicked element!
+
+  //UPDATE BUTTON EVENT
+  // If it was a button item with btnUpdate class
+  if (e.target && e.target.className == "btnUpdate") {
     // Button item found!  Output the ID!
-   
-    console.log("Button item ", e.target.id.replace("post-", ""), " was clicked!");
+    selectedUser = e.target.id;
 
-  /*   var selectedUser = e.target.id;
+    console.log(
+      "Update Button item ",
+      e.target.id.replace("post-", ""),
+      " was clicked!"
+    );
 
-    var admin = require('firebase-admin');
-
-    admin.auth().deleteUser(selectedUser)
-  .then(function() {
-    console.log("Successfully deleted user");
-  })
-  .catch(function(error) {
-    console.log("Error deleting user:", error);
-  });
- */
-
-
-/*     var user = firebase.auth().delete(selectedUser)
-    user.delete().then(function() {
-      // User deleted.
-      console.log("user deleted succesfully");
-    }).catch(function(error) {
-      // An error happened.
-      console.log("Fail to delete user");
-    });
-     */
+    return (
+      firebase
+        .database()
+        //Node level user and fetching record where node key = uid
+        .ref("/user/" + selectedUser)
+        .once("value")
+        .then(function(snapshot) {
+          var loggedInUser = snapshot.val();
+          var username = loggedInUser.uname;
   
- 
-
-    // Deleting User from real time databse 
-    return firebase
-    .database()
-    //Node level user and fetching record where nodesl
-    .ref('/user/' + selectedUser  )
-    .ref.remove();
-    //Remove user where by user id
-  
+          document.getElementById("txtUpdateName").value = username;
+        })
+        .catch(function(error) {
+          console.error("Error reading data from Realtime Database:", error);
+        })
+    );
 
 
-	}
+
+
+  }
+
+
+  //DELETE BUTTON EVENT
+  // If it was a button item with btnDelete class
+  if (e.target && e.target.className == "btnDelete") {
+    // Button item found!  Output the ID!
+
+    selectedUser = e.target.id;
+
+    console.log(
+      "Delete Button item ",
+      e.target.id.replace("post-", ""),
+      " was clicked!"
+    );
+
+    // Deleting User from real time databse
+    return (
+      firebase
+        .database()
+        //Node level user and fetching record  by uid
+        .ref("/user/" + selectedUser)
+        .ref.remove()
+    );
+  }
+
+
 });
-
-
