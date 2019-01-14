@@ -7,3 +7,24 @@
     display: block;
 
 }
+
+label {
+
+        font-weight: bold;
+
+}
+
+.banner {
+    height: 10vh;
+    
+    /* Flexbox */
+    display: flex;
+    align-items: center;
+   }
+
+
+   .jumbotron {
+    background-image: url(../assets/Patient-Information-Landing-Page-Image.jpg);
+  
+    background-size: cover;
+   }
