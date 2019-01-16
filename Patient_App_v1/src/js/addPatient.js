@@ -12,7 +12,7 @@ let txtCity = document.getElementById("txtCity");
 let txtAddress = document.getElementById("txtAddress");
 let txtPersonHeight = document.getElementById("txtPersonHeight");
 let txtPersonWeight = document.getElementById("txtPersonWeight");
-let txtMedicalCondition = document.getElementById("txtMedicalCondition");
+let txtMedicalCondition = document.getElementsByName("txtMedicalCondition");
 
 let btnAddPatient = document.getElementById("btnAddPatient");
 
@@ -25,8 +25,6 @@ btnAddPatient.addEventListener("click", e => {
     var contactnumber = txtContactNumber.value;
     var emergencynumber = txtEmergencyNumber.value;
     var dob = txtDob.value;
-   // var gender = txtGender.value;
-    var maritalstatus = txtMaritalStatus.value;
 
     for (var i = 0; i < txtGender.length; i++) {
       if (txtGender[i].checked) {
@@ -41,22 +39,21 @@ btnAddPatient.addEventListener("click", e => {
     }
 }
 
-/* 
-    if (document.getElementsByName('gender').checked) {
-      var gender = txtGender.value;;
-    }
-    if (document.getElementsByName('txtMaritalStatus').checked) {
-      var maritalstatus = txtMaritalStatus.value;
-    } */
+
     var city = txtCity.value;
     var address = txtAddress.value;
     var personheight = txtPersonHeight.value;
     var personweight = txtPersonWeight.value;
-    var medicalcondition = txtMedicalCondition.value;
-
+    var medicalcondition = [];
+    
+    for (var i = 0; i < txtMedicalCondition.length; i++) {
+      if (txtMedicalCondition[i].checked) {
+          medicalcondition.push(txtMedicalCondition[i].value);
+      }
+   }
 
     console.log(fullname + "-" + contactnumber + "-" + emergencynumber + "-" + dob + "-" + gender + "-" + maritalstatus + "-" + city + "-" + address + "-" + personheight + "-" + personweight + "-" + medicalcondition);
-    addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalstatus,city,address,personheight,personweight,medicalcondition);
+    addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalstatus,city,address,personheight,personweight,medicalcondition.toString());
     
 
 
@@ -105,7 +102,7 @@ function addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalsta
       .database()
       //Node level user and asssing user auth uid as key of this record
       .ref("patient/")
-      // .child(uid)
+      .push()
       .set({
         fullname: fullname,
         contactnumber: contactnumber,
