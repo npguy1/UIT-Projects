@@ -16,6 +16,8 @@ let txtMedicalCondition = document.getElementsByName("txtMedicalCondition");
 
 let btnAddPatient = document.getElementById("btnAddPatient");
 
+let currentDate = new Date().toDateString();
+
 
 
 
@@ -115,7 +117,6 @@ function addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalsta
         personheight: personheight,
         personweight: personweight,
         medicalcondition: medicalcondition
-
 
       })
       .catch(function(error) {
