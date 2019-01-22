@@ -2,37 +2,26 @@ let selectedUser;
 
 var test = 1;
 //getUserListOnce();
-getUserListOn();
-//getUserOnChange();
+//getUserListOn();
 
-// Update on change
-function getUserOnChange() {
-  var PatientRef = firebase.database().ref("/patient/");
-  PatientRef.on('value', function(snapshot) {
-    // updateStarCount(postElement, snapshot.val());
-    console.log("Here is the data " + test++);
+searchTerm = "Noman"
+searchByName(searchTerm);
+
+
+function searchByName(fname){
+  //ref.orderByKey().startAt("b").endAt("b\uf8ff").on("child_added", function(snapshot)
+  firebase.database().ref("/patient/").orderByChild('fullname').startAt(fname).endAt(fname+"\uf8ff").on("value", function(snapshot) {
+    console.log(snapshot.val());
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
-      createDataTable();
+
+      createDataTable(childKey,childData);
     });
-  });
-
-  PatientRef.on('child_removed', function(snapshot) {
-    /* snapshot.forEach(function(childSnapshot) {
-      var childKey = childSnapshot.key;
-      var childData = childSnapshot.val();
-      createDataTable();
-    }); */
-
-    console.log("Document Updated");
-
-  });
-  
+});
 
 
 }
-
 
 
 function createDataTable(childKey,childData){
@@ -82,51 +71,33 @@ function createDataTable(childKey,childData){
 
 // Get all users
 function getUserListOn() {
-  var PatientRef = firebase.database().ref("/patient/");
-
+ var PatientRef = firebase.database().ref("/patient/");
+ 
   PatientRef.on("value", function(snapshot) {
     // updateStarCount(postElement, snapshot.val());
-    console.log("Data List");
+   console.log("Data List");
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
-
- /*      console.log(
-        childKey +
-          " " +
-          childData.fullname +
-          " " +
-          childData.contactnumber +
-          " " +
-          childData.address
-      ); */
-
+      
+      
       createDataTable(childKey,childData);
 
     });
-  });
+  }); 
 
   PatientRef.on("child_removed", function(snapshot) {
     // updateStarCount(postElement, snapshot.val());
-    console.log("Data Deleted");
+    console.log("patient removed");
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
-
- /*      console.log(
-        childKey +
-          " " +
-          childData.fullname +
-          " " +
-          childData.contactnumber +
-          " " +
-          childData.address
-      ); */
-
+      
+      
       createDataTable(childKey,childData);
 
     });
-  });
+  }); 
 
 
 
@@ -146,6 +117,9 @@ function getUserListOnce() {
         snapshot.forEach(function(childSnapshot) {
           var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
+
+          console.log("Once");
+            
 
       /*     console.log(
             childKey +
