@@ -1,5 +1,6 @@
 let selectedUser;
 
+var test = 1;
 //getUserListOnce();
 getUserListOn();
 //getUserOnChange();
@@ -7,9 +8,9 @@ getUserListOn();
 // Update on change
 function getUserOnChange() {
   var PatientRef = firebase.database().ref("/patient/");
-  PatientRef.on('child_changed', function(snapshot) {
+  PatientRef.on('value', function(snapshot) {
     // updateStarCount(postElement, snapshot.val());
-    console.log("Here is the data " + snapshot.val());
+    console.log("Here is the data " + test++);
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
@@ -17,12 +18,15 @@ function getUserOnChange() {
     });
   });
 
-  PatientRef.on('child_changed', function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
+  PatientRef.on('child_removed', function(snapshot) {
+    /* snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
       createDataTable();
-    });
+    }); */
+
+    console.log("Document Updated");
+
   });
   
 
@@ -31,7 +35,7 @@ function getUserOnChange() {
 
 
 
-function createDataTable(){
+function createDataTable(childKey,childData){
 
    //creating table row
    var tr = document.createElement("tr");
@@ -82,12 +86,12 @@ function getUserListOn() {
 
   PatientRef.on("value", function(snapshot) {
     // updateStarCount(postElement, snapshot.val());
-    console.log("Here is the data " + snapshot.val());
+    console.log("Data List");
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
 
-      console.log(
+ /*      console.log(
         childKey +
           " " +
           childData.fullname +
@@ -95,49 +99,37 @@ function getUserListOn() {
           childData.contactnumber +
           " " +
           childData.address
-      );
+      ); */
 
-      //creating table row
-      var tr = document.createElement("tr");
-      //creating table td
-      var nameTD = document.createElement("td");
-      var contacnumberTD = document.createElement("td");
-      var addressTD = document.createElement("td");
+      createDataTable(childKey,childData);
 
-      nameTD.innerHTML = childData.fullname;
-      contacnumberTD.innerHTML = childData.contactnumber;
-      addressTD.innerHTML = childData.address;
-
-      tr.appendChild(nameTD);
-      tr.appendChild(contacnumberTD);
-      tr.appendChild(addressTD);
-
-      // Create TD  with View detail button
-      var td = document.createElement("td");
-      var btnu = document.createElement("BUTTON");
-      var btnTxtu = document.createTextNode("View Details");
-      btnu.className = "btn btn-primary btn-sm view-details";
-      btnu.id = childKey;
-      btnu.appendChild(btnTxtu);
-      td.appendChild(btnu);
-      tr.appendChild(td);
-
-      // Create TD  with Delete Patient button
-      var td = document.createElement("td");
-      var btnu = document.createElement("BUTTON");
-      var btnTxtu = document.createTextNode("Delete Patient");
-      btnu.className = "btn btn-primary btn-sm delete-patient";
-      btnu.id = childKey;
-      btnu.appendChild(btnTxtu);
-      td.appendChild(btnu);
-      tr.appendChild(td);
-
-      //Adding rows to table by id
-      var table = document.getElementById("dataListTable");
-      //table.innerHTML = "";
-      table.appendChild(tr);
     });
   });
+
+  PatientRef.on("child_removed", function(snapshot) {
+    // updateStarCount(postElement, snapshot.val());
+    console.log("Data Deleted");
+    snapshot.forEach(function(childSnapshot) {
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+
+ /*      console.log(
+        childKey +
+          " " +
+          childData.fullname +
+          " " +
+          childData.contactnumber +
+          " " +
+          childData.address
+      ); */
+
+      createDataTable(childKey,childData);
+
+    });
+  });
+
+
+
 }
 
 // Get all users Once
@@ -155,7 +147,7 @@ function getUserListOnce() {
           var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
 
-          console.log(
+      /*     console.log(
             childKey +
               " " +
               childData.fullname +
@@ -163,7 +155,7 @@ function getUserListOnce() {
               childData.contactnumber +
               " " +
               childData.address
-          );
+          ); */
 
           //creating table row
           var tr = document.createElement("tr");

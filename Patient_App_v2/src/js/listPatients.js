@@ -7,7 +7,7 @@ getUserListOn();
 // Update on change
 function getUserOnChange() {
   var PatientRef = firebase.database().ref("/patient/");
-  PatientRef.on('child_changed', function(snapshot) {
+  PatientRef.on('value', function(snapshot) {
     // updateStarCount(postElement, snapshot.val());
     console.log("Here is the data " + snapshot.val());
     snapshot.forEach(function(childSnapshot) {
