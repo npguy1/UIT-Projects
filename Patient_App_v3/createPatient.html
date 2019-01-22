@@ -14,8 +14,18 @@
     <!-- <link href="../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
+    <link href="src/js/form-validation.css" rel="stylesheet">
     <link href="src/css/style.css" rel="stylesheet">
+
+    <!-- Date Picker CSS  -->
+    <link href="src/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+       
+
+        <!--Firebase API-->
+        <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js">    
+    
+        </script>
     
   </head>
 
@@ -32,26 +42,26 @@
         
         <div class="col-md-12 order-md-1 mx-auto">
           <h4 class="mb-3">Personal Information</h4>
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" novalidate action="javascript:void(0);">
             <div class="row">
               <div class="col-md-4 mb-3">
-                <label for="fullName">First name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="" value="" required>
+                <label for="txtFullName">Full name</label>
+                <input type="text" class="form-control" id="txtFullName" placeholder="" value="" required>
                 <div class="invalid-feedback">
-                  Valid name is required.
+                  Valid full name is required.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="contactNumber">Contact Number</label>
-                <input type="text" class="form-control" id="contactNumber" placeholder="" value="" required>
+                <label for="txtContactNumber">Contact Number</label>
+                <input type="text" class="form-control" id="txtContactNumber" placeholder="" value="" required>
                 <div class="invalid-feedback">
-                  Valid date of birth is required.
+                  Valid contact number is required.
                 </div>
               </div>
 
               <div class="col-md-4 mb-3">
-                  <label for="emergencyNumber ">Emergency Number</label>
-                  <input type="text" class="form-control" id="emergencyNumber" placeholder="" value="" required>
+                  <label for="txtEmergencyNumber ">Emergency Number</label>
+                  <input type="text" class="form-control" id="txtEmergencyNumber" placeholder="" value="" >
                   <div class="invalid-feedback">
                     Valid date of birth is required.
                   </div>
@@ -64,8 +74,10 @@
         
 
                   <div class="col-md-4 mb-3">
-                      <label for="dob">Date of Birth</label>
-                      <input type="text" class="form-control" id="dob" placeholder="" value="" required>
+                      <label for="txtDob">Date of Birth</label>
+                    <!--   <input type="text" class="form-control" id="txtDob" placeholder="dd/mm/yyyy" value="" required> -->
+
+                      <input type="text" class="form-control" id="txtDob" data-provide="datepicker" placeholder="dd/mm/yyyy" value="" required>
       
                    <!--    <div class='input-group date' id='datetimepicker1'>
                         <input type='text' class="form-control" />
@@ -83,12 +95,12 @@
               <div class="col-md-4 mb-3">
                 <label class="d-block">Gender</label>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" id="gender" value="Male" required>
+                  <input class="form-check-input" type="radio" name="txtGender" id="genderM" value="Male" required>
                   <div class="d-inline">Male</div>
                   
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" id="gender" value="Female" required>
+                  <input class="form-check-input" type="radio" name="txtGender" id="genderF" value="Female" required>
                   <div class="d-inline">Female</div>
                 </div>
                 <div class="invalid-feedback">
@@ -99,11 +111,11 @@
               <div class="col-md-4 mb-3">
                 <label class="d-block">Marital Status</label>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="maritalStatus" id="maritalStatus" value="Male" required>
+                  <input class="form-check-input" type="radio" name="txtMaritalStatus" id="txtMaritalStatusS" value="Single" required>
                   <div class="d-inline">Single</div>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="maritalStatus" id="maritalStatus" value="Female" required>
+                  <input class="form-check-input" type="radio" name="txtMaritalStatus" id="txtMaritalStatusM" value="Married" required>
                   <div class="d-inline">Married</div>
                   
                 </div>
@@ -119,21 +131,26 @@
 
               <div class="row">
                 <div class="col-md-4 mb-3">
-                  <label for="city">City</label>
-                  <select class="custom-select d-block w-100" id="city" required>
+                  <label for="txtCity">City</label>
+                  <select class="custom-select d-block w-100" id="txtCity" >
                     <option value="">Choose...</option>
-                    <option>United States</option>
+                    <option>Karachi</option>
+                    <option>Hayderabad</option>
+                    <option>Lahore</option>
+                    <option>Peshawar</option>
+                    <option>Quetta</option>
+                    <option>Islamabad</option>
                   </select>
                   <div class="invalid-feedback">
-                    Please select a valid country.
+                    Please select a city.
                   </div>
                 </div>
                 <div class="col-md-8 mb-3">
                   
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                    <label for="txtAddress">Address</label>
+                    <input type="text" class="form-control" id="txtAddress" placeholder="1234 Main St" >
                     <div class="invalid-feedback">
-                      Please enter your shipping address.
+                      Please enter your address.
                     </div>
                  
                 </div>
@@ -147,18 +164,18 @@
               <div class="row">
                 
                 <div class="col-md-2 mb-3">
-                   <label for="personName">Height</label>
-                  <input type="text" class="form-control" id="personName" placeholder="Person Name" required>
+                   <label for="txtPersonHeight">Height</label>
+                  <input type="text" class="form-control" id="txtPersonHeight" placeholder="" >
                   <div class="invalid-feedback">
-                    Please enter your shipping address.
+                    Please enter your height.
                   </div>
                 </div>
                 <div class="col-md-2 mb-3">
                   
-                    <label for="relation">Weight</label>
-                    <input type="text" class="form-control" id="relation" placeholder="Relation" required>
+                    <label for="txtPersonWeight">Weight</label>
+                    <input type="text" class="form-control" id="txtPersonWeight" placeholder="" >
                     <div class="invalid-feedback">
-                      Please enter your shipping address.
+                        Please enter your weight.
                     </div>
                  
                 </div>
@@ -168,27 +185,27 @@
                     
                     <label class="d-block">Medical Condition</label>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" name="socialHistory" id="socialHistory" value="Hypertension" required>
+                      <input class="form-check-input" type="checkbox" name="txtMedicalCondition" id="txtMedicalCondition1" value="Hypertension">
                       <div class="d-inline">Hypertension</div>
                       
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" name="socialHistory" id="socialHistory" value="Diabetes" required>
+                      <input class="form-check-input" type="checkbox" name="txtMedicalCondition" id="txtMedicalCondition2" value="Diabetes" >
                       <div class="d-inline">Diabetes</div>
                     </div>
 
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="socialHistory" id="socialHistory" value="Asthma" required>
+                        <input class="form-check-input" type="checkbox" name="txtMedicalCondition" id="txtMedicalCondition3" value="Asthma" >
                         <div class="d-inline">Asthma</div>
                       </div>
 
                       <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="socialHistory" id="socialHistory" value="Other" required>
+                          <input class="form-check-input" type="checkbox" name="txtMedicalCondition" id="txtMedicalCondition4" value="Other">
                           <div class="d-inline">Other</div>
                         </div>
 
                     <div class="invalid-feedback">
-                      Gender is required.
+                      select one
                     </div>
                
               </div>
@@ -196,7 +213,7 @@
 
               </div>
 
-            <button class="btn btn-primary btn-lg btn-block mt-3" type="submit">Submit Patient Information</button>
+            <button class="btn btn-primary btn-lg btn-block mt-3" id="btnAddPatient" type="submit">Submit Patient Information</button>
           </form>
         </div>
       </div>
@@ -216,9 +233,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/vendor/holder.min.js"></script>
+ <!--    <script src="src/js/vendor/popper.min.js"></script>
+    <script src="src/js/bootstrap.min.js"></script>
+    <script src="src/js/holder.min.js"></script> -->
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
       (function() {
@@ -242,15 +259,35 @@
       })();
     </script>
 
-<script type="text/javascript">
-  $(function () {
-      $('#datetimepicker1').datetimepicker();
-  });
-</script>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<!-- <script src="src/js/initializeApp.js"></script> -->
+
+<script src="src/js/app.js"></script>
+<script src="src/js/addPatient.js"></script>
+
+<!-- Date Picker JS and funtion  -->
+<script src="src/js/bootstrap-datepicker.js"></script> 
+<script>
+  $('#txtDob').datepicker({
+    format: 'dd/mm/yyyy',
+    todayHighlight: true
+});
+</script> 
+
+
 
   </body>
 </html>

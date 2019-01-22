@@ -16,7 +16,16 @@ let txtMedicalCondition = document.getElementsByName("txtMedicalCondition");
 
 let btnAddPatient = document.getElementById("btnAddPatient");
 
+
+
+
+
+
 let currentDate = new Date().toDateString();
+
+
+
+console.log("current date "+  currentDate);
 
 
 
@@ -54,7 +63,9 @@ btnAddPatient.addEventListener("click", e => {
       }
    }
 
-    console.log(fullname + "-" + contactnumber + "-" + emergencynumber + "-" + dob + "-" + gender + "-" + maritalstatus + "-" + city + "-" + address + "-" + personheight + "-" + personweight + "-" + medicalcondition);
+  
+
+    console.log(fullname + "-" + contactnumber + "-" + emergencynumber + "-" + dob + "-" + gender + "-" + maritalstatus + "-" + city + "-" + address + "-" + personheight + "-" + personweight + "-" + medicalcondition + "-" + currentDate);
     addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalstatus,city,address,personheight,personweight,medicalcondition.toString());
     
 
@@ -117,7 +128,7 @@ function addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalsta
         personheight: personheight,
         personweight: personweight,
         medicalcondition: medicalcondition
-
+        
       })
       .catch(function(error) {
         console.error("Error writing new user to Realtime Database:", error);
