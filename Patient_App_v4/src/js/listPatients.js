@@ -5,6 +5,7 @@ let txtDob = document.getElementById("txtDob");
 
 let btnSearchPatient = document.getElementById("btnSearchPatient");
 let btnClearSearch = document.getElementById("btnClearSearch");
+let btnConfirmDelete = document.getElementById("btnConfirmDelete");
 
 
 
@@ -98,7 +99,8 @@ function createDataTable(childKey,childData){
    var btnu = document.createElement("BUTTON");
    var btnTxtu = document.createTextNode("View Details");
    btnu.className = "btn btn-primary btn-sm view-details";
-   btnu.id = childKey;
+   btnu.id = "view" + childKey;
+   btnu.value = childKey;
    btnu.appendChild(btnTxtu);
    td.appendChild(btnu);
    tr.appendChild(td);
@@ -108,7 +110,8 @@ function createDataTable(childKey,childData){
    var btnu = document.createElement("BUTTON");
    var btnTxtu = document.createTextNode("Delete Patient");
    btnu.className = "btn btn-primary btn-sm delete-patient";
-   btnu.id = childKey;
+   btnu.id = "delete" + childKey;
+   btnu.value = childKey;
    btnu.appendChild(btnTxtu);
    td.appendChild(btnu);
    tr.appendChild(td);
@@ -209,7 +212,6 @@ function getUserListOnce() {
           var btnu = document.createElement("BUTTON");
           var btnTxtu = document.createTextNode("View Details");
           btnu.className = "btn btn-primary btn-sm view-details";
-          btnu.data-toggle ="modal"
           btnu.id = childKey;
           btnu.appendChild(btnTxtu);
           td.appendChild(btnu);
@@ -237,7 +239,15 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
     // Button item found!  Output the ID!
     selectedUser = e.target.id;
 
-    var patientID = e.target.id;
+    var patientID = e.target.value;
+
+ 
+   
+    
+
+   
+    //getElementsByClassName("modal-body").innerHTML = "This pod for"+patientID;
+
     var queryString = "?pid=" + patientID;
     //  window.location.href = "patientDetail1.html" + queryString;
 
@@ -260,15 +270,19 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
     // Button item found!  Output the ID!
     selectedUser = e.target.id;
 
-    var patientID = e.target.id;
-    // Deleting User from real time databse
+    var patientID = e.target.value;
+
+    $("#exampleModal").modal({backdrop: "static"});
+    document.getElementById("modal-body").innerHTML = "<p>This pod for"+patientID+"</p>";
+
+/*      // Deleting User from real time databse
     return (
       firebase
         .database()
         //Node level user and fetching record  by uid
         .ref("/patient/" + patientID)
         .ref.remove()
-    );
+    );  */
   }
 
 
@@ -311,10 +325,20 @@ function toTitleCase(str) {
 
 
 
+function showModal(pid){
 
   $(document).ready(function(){
-    $("#exampleModal").modal("show");
-    $("btn btn-primary btn-sm view-details").click(function(){
-      $("#exampleModal").modal("hide");
-    });
+/*     $("#exampleModal").modal("hide");
+    $("#"+patientID).click(function(){
+      $("#exampleModal").modal("show");
+    });*/
+
+      $("#view"+pid).click(function(){
+    $("#exampleModal").modal({backdrop: "static"});
   });
+  }); 
+
+
+
+}
+
