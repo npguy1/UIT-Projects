@@ -17,6 +17,8 @@
     <link href="src/js/form-validation.css" rel="stylesheet">
     <link href="src/css/style.css" rel="stylesheet">
 
+     
+
         <!--Firebase API-->
         <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js">    
     
@@ -25,15 +27,6 @@
   </head>
 
   <body class="bg-light">
-
-
-
-
-
-
-
-
-    
       <div class="py-5 text-center jumbotron">
 
           <h1 class="text-light display-4">Patient List</h1>
@@ -42,73 +35,15 @@
     <div class="container">
      
 
-        <div class="row mb-3">
-          <!--   <h4 class="mb-3">Search Patient</h4> -->
-            <div class="col-md-12 order-md-1">
-              
-              <form class="needs-validation" novalidate action="javascript:void(0);">
-                <div class="row">
-                  <div class="col-md-3 mb-3">
-                    
-                    <input type="text" class="form-control" id="txtFullName" onkeyup="this.value=toTitleCase(this.value)" placeholder="Full Name" value="" required>
-                    <div class="invalid-feedback">
-                      Valid full name is required.
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                   
-                         
-                          <input type="text" class="form-control" id="txtDob" data-provide="datepicker" placeholder="Date (dd/mm/yyyy)" value="" >
-                    <div class="invalid-feedback">
-                      Valid contact number is required.
-                    </div>
-                  </div>
-    
-                  <div class="col-md-2 mb-3">
-                      
-
-                      <button class="btn btn-primary " id="btnSearchPatient" type="submit">Search Patient</button>
-                         
-                      <button class="btn btn-secondary hide" id="btnClearSearch" type="submit">Clear Search</button>
-
-                    </div>
-
-                  <!--   <div class="col-md-2 mb-3">
-                      
-
-                        <button class="btn btn-secondary hide" id="btnClearSearch" type="submit">Clear Search</button>
-                           
-                       
-  
-                      </div> -->
-                </div>
-    
-    
-             
-    
-                 
-    
-                 
-                
-    
-            
-              </form>
-            </div>
-          </div>
-    
-
-
-
-
       <div class="row">
-         <!--  <h4 class="mb-3">Patient List</h4> -->
+
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Patient Name</th>
               <th scope="col">Contact Number</th>
               <th scope="col">Address</th>
-              <th scope="col" colspan="2">Action</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody id="dataListTable">
@@ -122,7 +57,7 @@
 
           </tbody>
         </table>
-     
+
       </div>
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
@@ -185,7 +120,11 @@
 
 <!-- <script src="src/js/initializeApp.js"></script> -->
 <script src="src/js/app.js"></script>
-<script src="src/js/listPatients.js"></script>
+<script src="src/js/patientDetail.js"></script>
+
+
+
+
 
 
 
