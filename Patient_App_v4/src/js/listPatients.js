@@ -209,6 +209,7 @@ function getUserListOnce() {
           var btnu = document.createElement("BUTTON");
           var btnTxtu = document.createTextNode("View Details");
           btnu.className = "btn btn-primary btn-sm view-details";
+          btnu.data-toggle ="modal"
           btnu.id = childKey;
           btnu.appendChild(btnTxtu);
           td.appendChild(btnu);
@@ -307,3 +308,13 @@ function toTitleCase(str) {
       }
   );
 }
+
+
+
+
+  $(document).ready(function(){
+    $("#exampleModal").modal("show");
+    $("btn btn-primary btn-sm view-details").click(function(){
+      $("#exampleModal").modal("hide");
+    });
+  });
