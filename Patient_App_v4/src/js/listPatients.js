@@ -8,8 +8,9 @@ let btnClearSearch = document.getElementById("btnClearSearch");
 let btnConfirmDelete = document.getElementById("btnConfirmDelete");
 
 
-
 let selectedUser;
+
+var patientID;
 
 
 //getUserListOnce();
@@ -34,6 +35,40 @@ function searchByName(fname){
 
 }
 
+function searchByDate(dob){
+  //ref.orderByKey().startAt("b").endAt("b\uf8ff").on("child_added", function(snapshot)
+  firebase.database().ref("/patient/").orderByChild('dob').startAt(dob).endAt(dob).on("value", function(snapshot) {
+    console.log(snapshot.val());
+    document.getElementById("dataListTable").innerHTML="";
+    snapshot.forEach(function(childSnapshot) {
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+
+      createDataTable(childKey,childData);
+    });
+});
+
+
+}
+
+
+function searchByNameAndDate(fname,dob){
+  firebase.database().ref("/patient/").orderByChild('fullname').startAt(fname).endAt(fname+"\uf8ff").on("value", function(snapshot) {
+    console.log(snapshot.val());
+    document.getElementById("dataListTable").innerHTML="";
+    snapshot.forEach(function(childSnapshot) {
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+      if(childData.dob == dob){
+        createDataTable(childKey,childData);
+      }
+      
+    });
+});
+
+
+}
+
 
 
 //Search Button
@@ -42,9 +77,30 @@ btnSearchPatient.addEventListener("click", e => {
   var dob = txtDob.value;
 
 
+  if(txtFullName.value != "" && txtDob.value === "" ){
+    console.log("txtFullName.value")
+    searchByName(fullname);
 
-  searchByName(fullname);
+  }else if(txtFullName.value === "" && txtDob.value != "" ){
+    console.log("txtDob.value")
+    searchByDate(dob);
+
+  }else if(txtFullName.value != "" && txtDob.value != "" ){
+    console.log("Both Values")
+    searchByNameAndDate(fullname,dob);
+
+  }else {
+
+    console.log("Blank Search")
+  }
+
+  //searchByName(fullname);
  
+  
+
+  //searchByNameAndDate(fname,dob)
+
+
    // Showing Clear Search Button
    btnClearSearch.classList.remove("hide");
    
@@ -112,6 +168,7 @@ function createDataTable(childKey,childData){
    btnu.className = "btn btn-primary btn-sm delete-patient";
    btnu.id = "delete" + childKey;
    btnu.value = childKey;
+   btnu.name = childData.fullname;
    btnu.appendChild(btnTxtu);
    td.appendChild(btnu);
    tr.appendChild(td);
@@ -239,7 +296,7 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
     // Button item found!  Output the ID!
     selectedUser = e.target.id;
 
-    var patientID = e.target.value;
+     patientID = e.target.value;
 
  
    
@@ -270,12 +327,13 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
     // Button item found!  Output the ID!
     selectedUser = e.target.id;
 
-    var patientID = e.target.value;
+    patientID = e.target.value;
+    var patientName = e.target.name;
 
-    $("#exampleModal").modal({backdrop: "static"});
-    document.getElementById("modal-body").innerHTML = "<p>This pod for"+patientID+"</p>";
+    $("#deleteConfirmationModal").modal({backdrop: "static"});
+    document.getElementById("modal-body").innerHTML = "<p>Are you sure you want to delete patient name <strong>"+patientName+"</strong></p>";
 
-/*      // Deleting User from real time databse
+/*  // Deleting User from real time databse
     return (
       firebase
         .database()
@@ -284,6 +342,27 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
         .ref.remove()
     );  */
   }
+
+
+   //Confirm Delete Button
+  btnConfirmDelete.addEventListener("click", e => {
+    
+// Deleting User from real time databse
+return (
+  firebase
+    .database()
+    //Node level user and fetching record  by uid
+    .ref("/patient/" + patientID)
+    .ref.remove()
+    .then(function(){
+
+      $("#deleteConfirmationModal").modal("hide");
+
+    })
+);  
+
+
+});
 
 
   /*     //DELETE BUTTON EVENT

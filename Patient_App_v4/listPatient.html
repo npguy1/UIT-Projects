@@ -17,6 +17,9 @@
     <link href="src/js/form-validation.css" rel="stylesheet">
     <link href="src/css/style.css" rel="stylesheet">
 
+     <!-- Date Picker CSS  -->
+     <link href="src/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
         <!--Firebase API-->
         <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js">    
     
@@ -44,7 +47,7 @@
                 <div class="row">
                   <div class="col-md-3 mb-3">
                     
-                    <input type="text" class="form-control" id="txtFullName" onkeyup="this.value=toTitleCase(this.value)" placeholder="Full Name" value="" required>
+                    <input type="text" class="form-control" id="txtFullName" onkeyup="this.value=toTitleCase(this.value)" placeholder="Full Name" value="" >
                     <div class="invalid-feedback">
                       Valid full name is required.
                     </div>
@@ -95,13 +98,9 @@
 
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -215,6 +214,15 @@
 <script src="src/js/app.js"></script>
 <script src="src/js/listPatients.js"></script>
 
+
+<!-- Date Picker JS and funtion  -->
+<script src="src/js/bootstrap-datepicker.js"></script> 
+<script>
+  $('#txtDob').datepicker({
+    format: 'dd/mm/yyyy',
+    todayHighlight: true
+});
+</script> 
 
 
   </body>
