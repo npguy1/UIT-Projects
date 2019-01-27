@@ -1,17 +1,19 @@
 
 
+
+
+// Get DOM elements
+
 let txtFullName = document.getElementById("txtFullName");
 let txtContactNumber = document.getElementById("txtContactNumber");
-let txtEmergencyNumber = document.getElementById("txtEmergencyNumber");
-
 let txtDob = document.getElementById("txtDob");
-let txtGender = document.getElementById("txtGender");
-let txtMaritalStatus = document.getElementById("txtMaritalStatus");
-let txtCity = document.getElementById("txtCity");
-let txtAddress = document.getElementById("txtAddress");
-let txtPersonHeight = document.getElementById("txtPersonHeight");
-let txtPersonWeight = document.getElementById("txtPersonWeight");
+let txtVisitPurpose = document.getElementById("txtVisitPurpose");
+let txtFever = document.getElementById("txtFever");
+let txtBP = document.getElementById("txtBP");
 let txtMedicalCondition = document.getElementById("txtMedicalCondition");
+let txtMedicines = document.getElementById("txtMedicines");
+let txtAllergies = document.getElementById("txtAllergies");
+let txtTestSuggested = document.getElementById("txtTestSuggested");
 
 
 let btnEditPatient = document.getElementById("btnEditPatient");
@@ -22,6 +24,7 @@ var patientID = getUrlVars()["pid"];
 
 console.log(patientID + " was clicked")
 
+// extrating Patient id from query string 
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -45,17 +48,15 @@ getPatientDetail(patientID);
         .once("value")
         .then(function(snapshot) {
           var selectedUser = snapshot.val();
-          txtFullName.value = selectedUser.fullname;
-          txtContactNumber.value = selectedUser.contactnumber;
-          txtEmergencyNumber.value = selectedUser.emergencynumber;
+          txtFullName.value = selectedUser.fullName;
+          txtContactNumber.value = selectedUser.contactNumber;
+          txtVisitPurpose.value = selectedUser.visitPurpose;
           txtDob.value = selectedUser.dob;
-          txtGender.value = selectedUser.gender;
-          console.log(selectedUser.gender);
-          txtMaritalStatus.value = selectedUser.maritalstatus;
-          txtCity.value = selectedUser.city;
-          txtAddress.value = selectedUser.address;
-          txtPersonHeight.value = selectedUser.personheight;
-          txtPersonWeight.value = selectedUser.personweight;
+          txtFever.value = selectedUser.fever;
+          txtBP.value = selectedUser.bp;
+          txtMedicines.value = selectedUser.medicines;
+          txtAllergies.value = selectedUser.allergies;
+          txtTestSuggested.value = selectedUser.testSuggested;
           txtMedicalCondition.value = selectedUser.medicalcondition;
  
         })
@@ -96,7 +97,7 @@ function getUserList() {
             " " +
             childData.contactnumber +
             " " +
-            childData.address
+            childData.dob
         );
 
         //creating table row

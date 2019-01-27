@@ -13,6 +13,51 @@ let selectedUser;
 var patientID;
 
 
+
+//convert the date string in the format of dd/mm/yyyy into a JS date object
+function parseDate(dateStr) {
+  var dateParts = dateStr.split("/");
+  return new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+}
+
+/* var stringDate = parseDate("14/08/1979");
+
+console.log(stringDate);
+
+//var test = parseDate("1979-08-14");
+var test = parseDate("14/08/1979");
+//14/08/1979
+//console.log(test);
+
+// parse a date in yyyy-mm-dd format
+function parseDate(input) {
+  //Declare Regex
+  var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+ // var parts = input.match(/(\d+)/g);
+ var parts = input.match(rxDatePattern);
+
+  
+  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+  return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
+}
+
+
+
+ //let birthday = Date.parse("14/01/2019");
+//let birthday = "01/14/2019";
+
+
+let age = calculateAge(test)
+
+console.log("This is age " + age);
+
+function calculateAge(birthday) { // birthday is a date
+  var ageDifMs = Date.now() - birthday.getTime();
+  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+} */
+
+
 //getUserListOnce();
 getUserListOn();
 
@@ -140,15 +185,15 @@ function createDataTable(childKey,childData){
    //creating table td
    var nameTD = document.createElement("td");
    var contacnumberTD = document.createElement("td");
-   var addressTD = document.createElement("td");
+   var dobTD = document.createElement("td");
 
-   nameTD.innerHTML = childData.fullname;
-   contacnumberTD.innerHTML = childData.contactnumber;
-   addressTD.innerHTML = childData.address;
+   nameTD.innerHTML = childData.fullName;
+   contacnumberTD.innerHTML = childData.contactNumber;
+   dobTD.innerHTML = childData.arrivalDate;
 
    tr.appendChild(nameTD);
    tr.appendChild(contacnumberTD);
-   tr.appendChild(addressTD);
+   tr.appendChild(dobTD);
 
    // Create TD  with View detail button
    var td = document.createElement("td");
@@ -309,7 +354,7 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
     //  window.location.href = "patientDetail1.html" + queryString;
 
     window.open(
-      "patientDetail1.html" + queryString,
+      "patientDetails2.html" + queryString,
       "_blank" // <- This is what makes it open in a new window.
     );
 

@@ -3,16 +3,19 @@
 
 let txtFullName = document.getElementById("txtFullName");
 let txtContactNumber = document.getElementById("txtContactNumber");
-let txtEmergencyNumber = document.getElementById("txtEmergencyNumber");
-
 let txtDob = document.getElementById("txtDob");
-let txtGender = document.getElementsByName("txtGender");
-let txtMaritalStatus = document.getElementsByName("txtMaritalStatus");
-let txtCity = document.getElementById("txtCity");
-let txtAddress = document.getElementById("txtAddress");
-let txtPersonHeight = document.getElementById("txtPersonHeight");
-let txtPersonWeight = document.getElementById("txtPersonWeight");
+
+let txtVisitPurpose = document.getElementById("txtVisitPurpose");
+let txtFever = document.getElementById("txtFever");
+let txtBP = document.getElementById("txtBP");
 let txtMedicalCondition = document.getElementsByName("txtMedicalCondition");
+let txtMedicines = document.getElementsByName("txtMedicines");
+let txtAllergies = document.getElementById("txtAllergies");
+let txtTestSuggested = document.getElementById("txtTestSuggested");
+
+
+
+let btnAddMoreMed = document.getElementById("btnAddMoreMed");
 
 let btnAddPatient = document.getElementById("btnAddPatient");
 
@@ -45,12 +48,34 @@ function getCurrentDate() {
 
 //Add SignUp Event
 btnAddPatient.addEventListener("click", e => {
-    var fullname = txtFullName.value;
-    var contactnumber = txtContactNumber.value;
-    var emergencynumber = txtEmergencyNumber.value;
+    var fullName = txtFullName.value;
+    var contactNumber = txtContactNumber.value;
     var dob = txtDob.value;
+    var visitPurpose = txtVisitPurpose.value;
+    var fever = txtFever.value;
+    var bp = txtBP.value;
+    var allergies = txtAllergies.value;
+    var testSuggested = txtTestSuggested.value;
 
-    for (var i = 0; i < txtGender.length; i++) {
+    var medicines = [];
+
+    for (var i = 0; i < txtMedicines.length; i++) {
+      if (txtMedicines[i].value != "") {
+        medicines.push(txtMedicines[i].value);
+      }
+   }
+
+console.log(medicines);
+
+    var medicalcondition = [];
+    
+    for (var i = 0; i < txtMedicalCondition.length; i++) {
+      if (txtMedicalCondition[i].checked) {
+          medicalcondition.push(txtMedicalCondition[i].value);
+      }
+   }
+
+/*     for (var i = 0; i < txtGender.length; i++) {
       if (txtGender[i].checked) {
         var gender =  txtGender[i].value;
       }
@@ -62,26 +87,37 @@ btnAddPatient.addEventListener("click", e => {
       var maritalstatus =  txtMaritalStatus[i].value;
     }
 }
+ */
+
+  
 
 
-    var city = txtCity.value;
-    var address = txtAddress.value;
-    var personheight = txtPersonHeight.value;
-    var personweight = txtPersonWeight.value;
-    var medicalcondition = [];
+    console.log(
+      fullName + "-" + 
+      contactNumber + "-" + 
+      visitPurpose + "-" + 
+      dob + "-" + 
+      fever + "-" + 
+      bp + "-" + 
+      medicines + "-" + 
+      allergies + "-" + 
+      medicalcondition + "-"+ 
+      testSuggested + "-"+ 
+      currentDate);
     
-    for (var i = 0; i < txtMedicalCondition.length; i++) {
-      if (txtMedicalCondition[i].checked) {
-          medicalcondition.push(txtMedicalCondition[i].value);
-      }
-   }
-
-    console.log(fullname + "-" + contactnumber + "-" + emergencynumber + "-" + dob + "-" + gender + "-" + maritalstatus + "-" + city + "-" + address + "-" + personheight + "-" + personweight + "-" + medicalcondition + "-"+ currentDate);
-    addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalstatus,city,address,personheight,personweight,medicalcondition.toString(),currentDate);
     
-
-
-
+    addPatient(
+      fullName,
+      contactNumber,
+      visitPurpose,
+      dob,
+      fever,
+      bp,
+      medicines.toString(),
+      allergies,
+      testSuggested,
+      medicalcondition.toString(),
+      currentDate);
   });
 
 /*   //SignIn Link Event
@@ -120,7 +156,18 @@ function SignUp(email, password, username) {
   }
 
   //Add user info in database
-function addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalstatus,city,address,personheight,personweight,medicalcondition,currentdate) {
+function addPatient(
+  fullName,
+  contactNumber,
+  visitPurpose,
+  dob,
+  fever,
+  bp,
+  medicines,
+  allergies,
+  testSuggested,
+  medicalcondition,
+  currentDate) {
     
     firebase
       .database()
@@ -128,19 +175,17 @@ function addPatient(fullname,contactnumber,emergencynumber,dob,gender,maritalsta
       .ref("patient/")
       .push()
       .set({
-        fullname: fullname,
-        contactnumber: contactnumber,
-        emergencynumber: emergencynumber,
+        fullName: fullName,
+        contactNumber: contactNumber,
+        visitPurpose: visitPurpose,
         dob: dob,
-        gender: gender,
-        maritalstatus: maritalstatus,
-        city: city,
-        address: address,
-        personheight: personheight,
-        personweight: personweight,
-        patientaddedon: currentdate,
+        fever: fever,
+        bp: bp,
+        medicines: medicines,
+        allergies: allergies,
+        testSuggested: testSuggested,
+        arrivalDate: currentDate,
         medicalcondition: medicalcondition
-        
 
       })
       .catch(function(error) {
