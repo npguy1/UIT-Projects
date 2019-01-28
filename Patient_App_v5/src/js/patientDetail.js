@@ -71,7 +71,7 @@ getPatientDetail(patientID);
 btnEditPatient.addEventListener("click", e => {
   
   var queryString = "?pid=" + patientID;
-  window.location.href = "editPatient.html" + queryString;
+  window.location.href = "editPatient1.html" + queryString;
 
 
 });

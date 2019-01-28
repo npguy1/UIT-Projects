@@ -75,21 +75,7 @@ console.log(medicines);
       }
    }
 
-/*     for (var i = 0; i < txtGender.length; i++) {
-      if (txtGender[i].checked) {
-        var gender =  txtGender[i].value;
-      }
-  }
 
-  
-  for (var i = 0; i < txtMaritalStatus.length; i++) {
-    if (txtMaritalStatus[i].checked) {
-      var maritalstatus =  txtMaritalStatus[i].value;
-    }
-}
- */
-
-  
 
 
     console.log(

@@ -1,7 +1,7 @@
 // Get DOM elements
 
 let txtFullName = document.getElementById("txtFullName");
-let txtDob = document.getElementById("txtDob");
+let txtArrivalDate = document.getElementById("txtArrivalDate");
 
 let btnSearchPatient = document.getElementById("btnSearchPatient");
 let btnClearSearch = document.getElementById("btnClearSearch");
@@ -66,7 +66,7 @@ searchByName(searchTerm); */
 
 function searchByName(fname){
   //ref.orderByKey().startAt("b").endAt("b\uf8ff").on("child_added", function(snapshot)
-  firebase.database().ref("/patient/").orderByChild('fullname').startAt(fname).endAt(fname+"\uf8ff").on("value", function(snapshot) {
+  firebase.database().ref("/patient/").orderByChild('fullName').startAt(fname).endAt(fname+"\uf8ff").on("value", function(snapshot) {
     console.log(snapshot.val());
     document.getElementById("dataListTable").innerHTML="";
     snapshot.forEach(function(childSnapshot) {
@@ -80,10 +80,11 @@ function searchByName(fname){
 
 }
 
-function searchByDate(dob){
+function searchByDate(arrivalDate){
+  console.log("this is in dob " + arrivalDate);
   //ref.orderByKey().startAt("b").endAt("b\uf8ff").on("child_added", function(snapshot)
-  firebase.database().ref("/patient/").orderByChild('dob').startAt(dob).endAt(dob).on("value", function(snapshot) {
-    console.log(snapshot.val());
+  firebase.database().ref("/patient/").orderByChild('arrivalDate').startAt(arrivalDate).endAt(arrivalDate).on("value", function(snapshot) {
+    console.log("This is date results " + snapshot.val());
     document.getElementById("dataListTable").innerHTML="";
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
@@ -97,14 +98,14 @@ function searchByDate(dob){
 }
 
 
-function searchByNameAndDate(fname,dob){
-  firebase.database().ref("/patient/").orderByChild('fullname').startAt(fname).endAt(fname+"\uf8ff").on("value", function(snapshot) {
+function searchByNameAndDate(fname,arrivalDate){
+  firebase.database().ref("/patient/").orderByChild('fullName').startAt(fname).endAt(fname+"\uf8ff").on("value", function(snapshot) {
     console.log(snapshot.val());
     document.getElementById("dataListTable").innerHTML="";
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
-      if(childData.dob == dob){
+      if(childData.arrivalDate == arrivalDate){
         createDataTable(childKey,childData);
       }
       
@@ -119,20 +120,20 @@ function searchByNameAndDate(fname,dob){
 //Search Button
 btnSearchPatient.addEventListener("click", e => {
   var fullname = txtFullName.value;
-  var dob = txtDob.value;
+  var arrivaldate = txtArrivalDate.value;
 
-
-  if(txtFullName.value != "" && txtDob.value === "" ){
-    console.log("txtFullName.value")
+ 
+  if(txtFullName.value != "" && txtArrivalDate.value === "" ){
+    console.log("txtFullName.value " + fullname )
     searchByName(fullname);
 
-  }else if(txtFullName.value === "" && txtDob.value != "" ){
-    console.log("txtDob.value")
-    searchByDate(dob);
+  }else if(txtFullName.value === "" && txtArrivalDate.value != "" ){
+    console.log("txtArrivalDate.value " + arrivaldate )
+    searchByDate(arrivaldate);
 
-  }else if(txtFullName.value != "" && txtDob.value != "" ){
+  }else if(txtFullName.value != "" && txtArrivalDate.value != "" ){
     console.log("Both Values")
-    searchByNameAndDate(fullname,dob);
+    searchByNameAndDate(fullname,arrivaldate);
 
   }else {
 
@@ -164,6 +165,9 @@ btnClearSearch.addEventListener("click", e => {
 
   //getUserListOnce();
 getUserListOn();
+
+txtFullName.value = "";
+txtArrivalDate.value = "";
 
   // Showing Search Button
   btnSearchPatient.classList.remove("hide");
@@ -237,11 +241,11 @@ function getUserListOn() {
 
     document.getElementById("dataListTable").innerHTML="";
 
-   console.log("Data List");
+  
     snapshot.forEach(function(childSnapshot) {
       var childKey = childSnapshot.key;
       var childData = childSnapshot.val();
-           
+      console.log("Data List " + snapshot.val());
       createDataTable(childKey,childData);
 
     });
@@ -301,7 +305,7 @@ function getUserListOnce() {
           var contacnumberTD = document.createElement("td");
           var addressTD = document.createElement("td");
 
-          nameTD.innerHTML = childData.fullname;
+          nameTD.innerHTML = childData.fullName;
           contacnumberTD.innerHTML = childData.contactnumber;
           addressTD.innerHTML = childData.address;
 
