@@ -82,14 +82,14 @@ getPatientDetail(patientID);
 
 
           
-           // Selecting Medical from DB query
+   /*         // Selecting Medical from DB query
            for (var i = 0; i < txtMedicalCondition.length; i++) {
             if (txtMedicalCondition[i].value === selectedUser.medicalcondition) {
 
               txtMedicalCondition[i].checked = true;
             
             }
-        }
+        } */
 
 
         
@@ -98,14 +98,23 @@ getPatientDetail(patientID);
            medicalconditionComma = selectedUser.medicalcondition.split(',')
            console.log("metical " + medicalconditionComma);
            for (var i = 0; i < medicalconditionComma.length; i++) {
-            //console.log(selectedUser.medicalcondition.split(/,(.+)/)[i]);
-            if (txtMedicalCondition[i].value === medicalconditionComma[i]) {
 
-              
+              for (var j=0; j < txtMedicalCondition.length; j++ ) {
 
-              txtMedicalCondition[i].checked = true;
+              //console.log("medical condition_out " + medicalconditionComma[i] + " == " + txtMedicalCondition[i].value);
+            if (txtMedicalCondition[j].value === medicalconditionComma[i]) {
+
+              console.log("medical condition_in " + medicalconditionComma[i] + " == " + txtMedicalCondition[j].value);
+
+              txtMedicalCondition[j].checked = true;
             
             }
+
+
+
+              }
+     
+            
         }
 
          
