@@ -14,25 +14,31 @@
     <!-- <link href="../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
-    <link href="signin.css" rel="stylesheet">
+    <link href="src/css/form-validation.css" rel="stylesheet">
+    <link href="src/css/signin.css" rel="stylesheet">
+    <!--Firebase API-->
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>  
+    
   </head>
 
   <body class="text-center">
-    <form class="form-signin">
+    <form class="form-signin" action="javascript:void(0);">
       <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
+      <label for="txtEmail" class="sr-only">Email address</label>
+      <input type="text" id="txtEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="txtPassword" class="sr-only">Password</label>
+      <input type="text" id="txtPassword" class="form-control" placeholder="Password" required>
+<!--       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+      </div> -->
+      <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+     <!--  <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p> -->
     </form>
+
+    <script src="src/js/app.js"></script>
+    <script src="src/js/signin.js"></script>
   </body>
 </html>
