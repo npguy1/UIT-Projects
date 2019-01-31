@@ -90,20 +90,40 @@ console.log(medicines);
       medicalcondition + "-"+ 
       testSuggested + "-"+ 
       currentDate);
+
+    //  console.log("form " + formValidation());
+
+    if(formValidation()) {
+
+let errorDivs = document.getElementsByClassName("error");
+
+for(var i=0; i < errorDivs.length; i++) {
+
+  errorDivs[i].innerHTML="";
+
+}
+
+
+
+      console.log("i am in  ");
+
+      addPatient(
+        fullName,
+        contactNumber,
+        visitPurpose,
+        dob,
+        fever,
+        bp,
+        medicines.toString(),
+        allergies,
+        testSuggested,
+        medicalcondition.toString(),
+        currentDate);
+
+
+    }
     
-    
-    addPatient(
-      fullName,
-      contactNumber,
-      visitPurpose,
-      dob,
-      fever,
-      bp,
-      medicines.toString(),
-      allergies,
-      testSuggested,
-      medicalcondition.toString(),
-      currentDate);
+
   });
 
 

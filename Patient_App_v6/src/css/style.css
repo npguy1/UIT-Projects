@@ -3,6 +3,16 @@
     display: none;
 }
 
+.hidden {
+
+    visibility: hidden;
+}
+
+.appear {
+
+    visibility: visible;
+}
+
  .show {
     display: block;
 
@@ -22,6 +32,23 @@ label {
     align-items: center;
    }
 
+   .error {
+
+     color: red;
+   }
+
+
+   .special-card {
+    /* create a custom class so you 
+       do not run into specificity issues 
+       against bootstraps styles
+       which tends to work better than using !important 
+       (future you will thank you later)*/
+    
+      background-color: rgba(245, 245, 245, .7);
+      border-radius: 10px;
+      
+    }
 
    .jumbotron {
     background-image: url(../assets/Patient-Information-Landing-Page-Image.jpg);

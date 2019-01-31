@@ -2,6 +2,9 @@
 // Get DOM elements
 let txtEmail = document.getElementById("txtEmail");
 let txtPassword = document.getElementById("txtPassword");
+let loginError = document.getElementById("loginError");
+
+
 
 let btnSignIn = document.getElementById("btnSignIn");
 
@@ -35,6 +38,7 @@ function SignIn(email, password) {
       })
       .catch(function(error) {
         // Handle Errors here.
+        loginError.innerHTML = "Wrong username or password.";
          var errorMessage = error.message;
         console.log(email + "---" + password);
         console.log(errorMessage);

@@ -23,19 +23,6 @@ let btnViewPatients = document.getElementById("btnViewPatients");
 });
 
 
- //Add SignOut Event
- linkSignOut.addEventListener("click", e => {
-    firebase
-      .auth()
-      .signOut()
-      .then(function() {
-        // Sign-out successful.
-        console.log("User signed out successfully");
-        location.href = "index.html";
-      })
-      .catch(function(error) {
-        // An error happened.
-      });
-  });
+
 
 
