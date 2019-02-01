@@ -91,15 +91,22 @@ console.log(medicines);
       testSuggested + "-"+ 
       currentDate);
 
-    //  console.log("form " + formValidation());
+      console.log("form " + checkForm());
 
-    if(formValidation()) {
+    if(checkForm()) {
 
-let errorDivs = document.getElementsByClassName("error");
+let allErrorDivs = document.getElementsByClassName("text-danger small");
+let allInputFields = document.getElementsByClassName("form-control");
 
-for(var i=0; i < errorDivs.length; i++) {
+for(var i=0; i < allInputFields.length; i++) {
 
-  errorDivs[i].innerHTML="";
+  allInputFields[i].value="";
+
+}
+
+for(var i=0; i < allErrorDivs.length; i++) {
+
+  allErrorDivs[i].innerHTML="";
 
 }
 
@@ -107,7 +114,7 @@ for(var i=0; i < errorDivs.length; i++) {
 
       console.log("i am in  ");
 
-      addPatient(
+       addPatient(
         fullName,
         contactNumber,
         visitPurpose,
@@ -118,8 +125,7 @@ for(var i=0; i < errorDivs.length; i++) {
         allergies,
         testSuggested,
         medicalcondition.toString(),
-        currentDate);
-
+        currentDate); 
 
     }
     
@@ -188,12 +194,15 @@ function addPatient(
       }).then(function(){
 
 
+        document.activeElement.blur();
         $(".alert-success").show();
+        setTimeout(function(){ $(".alert-success").remove(); }, 3000);
+/* 
       window.setTimeout(function() {
       $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
         $(this).remove(); 
     });
-    }, 4000);
+    }, 4000); */
 
  
 

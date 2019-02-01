@@ -188,6 +188,23 @@ btnSaveChanges.addEventListener("click", e => {
     medicalcondition + "-"+ 
     testSuggested);
   
+
+
+    if(checkForm()) {
+
+      let errorDivs = document.getElementsByClassName("text-danger small");
+      
+      for(var i=0; i < errorDivs.length; i++) {
+      
+        errorDivs[i].innerHTML="";
+      
+      }
+      
+      
+      
+            console.log("i am in  ");
+
+
   
     editPatient(
     fullName,
@@ -200,6 +217,8 @@ btnSaveChanges.addEventListener("click", e => {
     allergies,
     testSuggested,
     medicalcondition.toString());
+
+    }
 });
 
 
@@ -273,6 +292,13 @@ function SignUp(email, password, username) {
           testSuggested: testSuggested,
           medicalcondition: medicalcondition
   
+        }).then(function(){
+
+          document.activeElement.blur();
+          $(".alert-success").show();
+          setTimeout(function(){ $(".alert-success").remove(); }, 3000);
+
+
         })
         .catch(function(error) {
           console.error("Error writing new user to Realtime Database:", error);

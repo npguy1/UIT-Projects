@@ -5,26 +5,91 @@ function insertAfter(referenceNode, newNode) {
 }
 
 var errorDiv = document.createElement("div");
-errorDiv.className = "error";
+errorDiv.className = "text-danger small";
 
 
-function formValidation() {
+// DOM Values 
+var fullName = txtFullName.value;
+var contactNumber = txtContactNumber.value;
+var dob = txtDob.value;
 
- // To check empty form fields.
- if (txtFullName.value.length < 3) {
-  txtFullName.focus();
-  var errorMessage = "Valid full name is required. Please";
-  errorDiv.innerHTML = errorMessage;
-  insertAfter(txtFullName, errorDiv);
-  return false;
-  } else {
 
+function checkForm()
+  {
+   
+    var alphabeticExpression = /^[a-zA-Z\s]+$/;
+
+    // validation fails if the input is blank
+    if(txtFullName.value.length < 3 || !(txtFullName.value.match(alphabeticExpression))) {
+      console.log("I am inn")
+      txtFullName.focus();
+      var errorMessage = "Name should be at least 3 characters and alphabets only ";
+      errorDiv.innerHTML = errorMessage;
+      insertAfter(txtFullName, errorDiv);
+      return false;
+    }
+
+
+    // regular expression to match only alphanumeric characters and spaces
+    var numericExpression = /^[0-9]+$/;
+
+    // validation fails if the input doesn't match our regular expression
+    if( txtContactNumber.value.length < 6 || !(txtContactNumber.value.match(numericExpression))) {
+      txtContactNumber.focus();
+      var errorMessage = "Phone number should be at least 6 and numbers only";
+      errorDiv.innerHTML = errorMessage;
+      insertAfter(txtContactNumber, errorDiv);
+      return false;
+    }
+
+   // checkEmpty(txtDob,"Valid date of birth is required");
+     // validation fails if the input is blank
+     if(txtDob.value == "") {
+      txtDob.focus();
+      var errorMessage = "Valid date of birth is required";
+      errorDiv.innerHTML = errorMessage;
+      insertAfter(txtDob, errorDiv);
+      return false;
+    }
+    
+
+
+    // validation was successful
     return true;
+  }
+
+
+  function checkEmpty(inputField,errorMessage){
+
+    if(inputField.value == "") {
+      inputField.focus();
+    //  errorMessage = "Valid date of birth is required";
+      errorDiv.innerHTML = errorMessage;
+      insertAfter(inputField, errorDiv);
+      return false;
+    }
 
   }
 
 
-}
+// fullName==null || fullName=="",contactNumber==null || contactNumber=="",dob==null || dob==""
+
+/* function formValidation() {
+
+  // To check empty form fields.
+  if (fullName=="" || contactNumber=="" || dob=="")
+  {
+
+  console.log("Please Fill All Required Field");
+      return false;
+  } else {
+    return true;
+  }
+  
+ } */
+
+
+    
 
 
 
@@ -33,12 +98,7 @@ function formValidation() {
 
 
 
-
-
-
-
-
-
+ 
 
 
 
