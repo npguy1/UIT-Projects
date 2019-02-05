@@ -50,9 +50,16 @@ label {
       
     }
 
-   .jumbotron {
-    background-image: url(../assets/Patient-Information-Landing-Page-Image.jpg);
-  
+   .full-bg {
+    background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url(../assets/Patient-Information-Landing-Page-Image.jpg);
+  background-size: cover;
+  background-position: center center;
+    background-repeat: no-repeat;
     background-size: cover;
    
    }
@@ -123,7 +130,7 @@ label {
 
 h1 {
     font-size: 36px; /* Some tweener fallback that doesn't look awful */ 
-    font-size: 5.5vmax;  
+    font-size: 5.5vmin;  
     font-weight: 400;
   }
  
@@ -135,7 +142,7 @@ h1 {
     
     padding-right: 10px;
     
-    border-right: 1px solid rgb(134, 134, 134);
+    border-right: 1px solid rgb(218, 218, 218);
     line-height: 1rem;
     
   }
@@ -147,4 +154,17 @@ h1 {
   }
 
 
+ .home a {
+
  
+    color: #ffffff;
+
+ }
+
+ .home a:hover {
+
+ 
+  color: #ffffff;
+
+
+}

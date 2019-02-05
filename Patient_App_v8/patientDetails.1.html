@@ -43,55 +43,50 @@
       <div class="row">
         <div class="col-md-12 order-md-1 mx-auto">
           <form
-            class="needs-validation "
+            class="needs-validation"
             novalidate
             action="javascript:void(0);"
           >
             <div class="row">
-              <div class="col-md-12 mb-3 ">
-               <!--  <label for="txtFullName">Full name</label> -->
+              <div class="col-md-4 mb-3">
+                <label for="txtFullName">Full name</label>
                 <input
                   type="text"
                   readonly
-                  class="form-control-plaintext display-4"
+                  class="form-control-plaintext"
                   id="txtFullName"
                   onkeyup="this.value=toTitleCase(this.value)"
                   placeholder=""
                   value=""
                 />
               </div>
-              
-            </div>
-            <div class="row">
-
-                <div class="col-md-4">
-                  <label for="txtContactNumber">Contact Number</label>
-                  <input
-                    type="text"
-                    readonly
-                    class="form-control-plaintext"
-                    id="txtContactNumber"
-                    placeholder=""
-                    value=""
-                  />
-                </div>
-  
-                <div class="col-md-4">
-                  <label for="txtDob">Date of Birth</label>
-  
-                  <input
-                    type="text"
-                    readonly
-                    class="form-control-plaintext"
-                    id="txtDob"
-                    value=""
-                  />
-                </div>
+              <div class="col-md-4 mb-3">
+                <label for="txtContactNumber">Contact Number</label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtContactNumber"
+                  placeholder=""
+                  value=""
+                />
               </div>
-              <hr>
+
+              <div class="col-md-4 mb-3">
+                <label for="txtDob">Date of Birth</label>
+
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtDob"
+                  value=""
+                />
+              </div>
+            </div>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-8 mb-3">
                 <label for="txtVisitPurpose">Purpose of Visit</label>
                 <input
                   type="text"
@@ -102,7 +97,7 @@
                 />
               </div>
 
-              <div class="col-md-1 mb-3">
+              <div class="col-md-2 mb-3">
                 <label for="txtFever">Fever</label>
                 <input
                   type="text"
@@ -113,7 +108,7 @@
                 />
               </div>
 
-              <div class="col-md-3 mb-3">
+              <div class="col-md-2 mb-3">
                 <label for="txtBP">Blood Pressure </label>
                 <input
                   type="text"
@@ -138,10 +133,10 @@
               </div>
             </div>
 
-           
+            <h5 class="mb-3">Prescribe Medicine</h5>
             <div class="row">
               <div class="col-md-12 mb-3">
-                <label for="txtMedicines">Prescribe Medicine</label>
+                <label for="txtMedicines">Medicine 1</label>
                 <input
                   type="text"
                   readonly
