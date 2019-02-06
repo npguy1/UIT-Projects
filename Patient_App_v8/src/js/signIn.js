@@ -3,7 +3,29 @@ let txtEmail = document.getElementById("txtEmail");
 let txtPassword = document.getElementById("txtPassword");
 let loginError = document.getElementById("loginError");
 
-let btnSignIn = document.getElementById("btnSignIn");
+let txtNewName = document.getElementById("txtNewName");
+let txtNewEmail = document.getElementById("txtNewEmail");
+let txtNewPassword = document.getElementById("txtNewPassword");
+
+let linkSignIn = document.getElementById("linkSignIn");
+let linkSignUp = document.getElementById("linkSignUp");
+
+let signInForm = document.getElementById("signIn-form");
+let signUpForm = document.getElementById("signUp-form");
+
+
+//Add SignIn Event
+linkSignUp.addEventListener("click", e => {
+  signInForm.classList.add("hide");
+  signUpForm.classList.remove("hide");  
+ 
+});
+
+linkSignIn.addEventListener("click", e => {
+  signInForm.classList.remove("hide");
+  signUpForm.classList.add("hide"); 
+ });
+
 
 //Add SignIn Event
 btnSignIn.addEventListener("click", e => {
