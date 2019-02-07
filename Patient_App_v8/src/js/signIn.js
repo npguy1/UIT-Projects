@@ -90,12 +90,14 @@ btnSignUp.addEventListener("click", e => {
       txtNewName.value.length < 3 ||
       !txtNewName.value.match(alphabeticExpression)
     ) {
-      console.log("I am inn");
+      
       txtNewName.focus();
       var errorMessage =
         "Name should be alphabets only and at least 3 characters or more ";
       signupError.innerHTML = errorMessage;
       } else {
+
+        console.log(name +" == "+ email +" == "+ password);
 
         SignUp(name, email, password);
 
@@ -113,8 +115,10 @@ btnSignUp.addEventListener("click", e => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
+        //add user info in db
         addUser(name);
         console.log(res);
+        console.log(name +" == ");
         console.log("User signed up successfully");
       })
       .catch(function(error) {
@@ -133,6 +137,7 @@ btnSignUp.addEventListener("click", e => {
 
   //Add user info in database
 function addUser(userName) {
+  //getting logged in user info from auth
     var user = firebase.auth().currentUser;
     var uid = user.uid;
     var userEmail = user.email;
@@ -140,21 +145,19 @@ function addUser(userName) {
       .database()
       //Node level user and asssing user auth uid as key of this record
       .ref("/user/" + uid)
-      // .child(uid)
+      // Setting key of data base from auth user
       .set({
         userId: uid,
         email: userEmail,
         uname: userName
       })
       .then(res => {
-        addUser(name);
-        console.log(res);
-        console.log("User Signed up successfully");
+        // opening landing page after sign up
+        txtNewName.value = "";
+        txtNewEmail.value = "";
+        txtNewPassword.value = "";
         location.href = "landing.html";
-   /*      
-        signupError.classList.remove("text-danger");
-        signupError.classList.add("text-success"); 
-        signupError.innerHTML = "User Signed up successfully"; */
+
       })
       .catch(function(error) {
         console.error("Error writing new user to Realtime Database:", error);

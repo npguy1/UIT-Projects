@@ -9,7 +9,7 @@ window.onload = function() {
       //window.open("index.html");
       location.href = "index.html";
     } else {
-      //    getLoggedInUserName();
+         getLoggedInUserName();
     }
   });
 };
@@ -30,7 +30,7 @@ function getLoggedInUserName() {
         var username = loggedInUser.uname;
 
         /* document.getElementById("userinfo").innerHTML = "Welcome " +username; */
-        document.getElementById("userinfo").innerHTML = username + " ";
+        document.getElementById("userinfo").innerHTML = "Welcome "+ username;
       })
       .catch(function(error) {
         console.error("Error reading data from Realtime Database:", error);
