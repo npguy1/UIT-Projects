@@ -281,8 +281,10 @@ document.getElementById("dataListTable").addEventListener("click", function(e) {
     //  window.location.href = "patientDetail1.html" + queryString;
 
     window.open(
-      "patientDetails.html" + queryString,
-      "_blank" // <- This is what makes it open in a new window.
+    /*   "patientDetails.html" + queryString,
+      "_blank" // <- This is what makes it open in a new window. */
+
+      "patientDetails.html" + queryString
     );
 
     console.log(

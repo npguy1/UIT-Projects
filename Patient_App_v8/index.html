@@ -34,7 +34,7 @@
           <h2 class="h3 mb-3 font-weight-normal">Please Sign In</h2>
           <label for="txtEmail" class="sr-only">Email address</label>
           <input
-            type="text"
+            type="email"
             id="txtEmail"
             class="form-control"
             placeholder="Email address"
@@ -56,7 +56,7 @@
           >
             Sign in
           </button>
-          <div id="loginError" class="error"></div>
+          <div id="loginError" class="text-danger"></div>
 
           <br>
           <button type="button" id="linkSignUp" class="btn btn-link">Sign Up</button>
@@ -67,12 +67,13 @@
         
         <form class="form-signin hide" id="signUp-form" action="javascript:void(0);">
           <h2 class="h3 mb-3 font-weight-normal">Please Sign Up</h2>          
-          <label for="txtNewName" class="sr-only">Email address</label>
+          <label for="txtNewName" class="sr-only">Full Name</label>
           <input
             type="text"
             id="txtNewName"
             class="form-control"
-            placeholder="You Name"
+            placeholder="Your Name"
+            onkeyup="this.value=toTitleCase(this.value)"
             required
             autofocus
           />
@@ -88,7 +89,7 @@
           />
           <label for="txtNewPassword" class="sr-only">Password</label>
           <input
-            type="text"
+            type="password"
             id="txtNewPassword"
             class="form-control"
             placeholder="Password"
@@ -99,9 +100,9 @@
             class="btn btn-lg btn-primary btn-block"
             type="submit"
           >
-            Sign in
+            Sign Up
           </button>
-          <div id="loginError" class="error"></div>
+          <div id="signupError" class="text-danger"></div>
           <br>
           <button type="button" id="linkSignIn" class="btn btn-link">Sign In</button>
 
