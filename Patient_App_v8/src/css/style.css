@@ -133,6 +133,13 @@ h1 {
     font-size: 5.5vmin;  
     font-weight: 400;
   }
+
+  .patient-name {
+    font-size: 36px; /* Some tweener fallback that doesn't look awful */ 
+    font-size: 5.5vmax;  
+    font-weight: 400;
+    
+  }
  
  
   
