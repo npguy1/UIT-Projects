@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="src/assets/favicons/favicon.ico" />
+
+    <title>Patient Information System</title>
+
+    <!-- Checking if user is logged In from on Auth -->
+    <script src="src/js/onAuth.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="src/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="src/css/style.css" rel="stylesheet" />
+
+    <!-- Date Picker CSS  -->
+    <link href="src/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+    <!--Firebase API-->
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+  </head>
+
+  <body class="bg-light">
+    <div class="container mt-2">
+      <div class="d-flex justify-content-between">
+        <h1 class="mb-4">Patient Details</h1>
+        
+        <div class="text-right">
+          <a href="javascript:void(0);" id="linkSignOut"> Sign Out</a>
+        </div>
+        <!--  <div class="text-right"><span id="userinfo"></span> | <a href="javascript:void(0);" id="linkSignOut" > Sign Out</a></div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 order-md-1 mx-auto">
+          <form
+            class="needs-validation "
+            novalidate
+            action="javascript:void(0);"
+          >
+            <div class="row">
+              <div class="col-md-12 mb-3 ">
+               <!--  <label for="txtFullName">Full name</label> -->
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext patient-name"
+                  id="txtFullName"
+                  onkeyup="this.value=toTitleCase(this.value)"
+                  placeholder=""
+                  value=""
+                />
+              </div>
+              
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                  <label for="txtContactNumber">Contact Number</label>
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control-plaintext"
+                    id="txtContactNumber"
+                    placeholder=""
+                    value=""
+                  />
+                </div>
+  
+                <div class="col-md-4">
+                  <label for="txtDob">Date of Birth</label>
+  
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control-plaintext"
+                    id="txtDob"
+                    value=""
+                  />
+                </div>
+              </div>
+              <hr>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label for="txtVisitPurpose">Purpose of Visit</label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtVisitPurpose"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="col-md-1 mb-3">
+                <label for="txtFever">Fever</label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtFever"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="txtBP">Blood Pressure </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtBP"
+                  placeholder=""
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="d-block">Medical Condition</label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  name="txtMedicalCondition"
+                  id="txtMedicalCondition"
+                />
+              </div>
+            </div>
+
+           
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="txtMedicines">Prescribe Medicine</label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtMedicines"
+                  name="txtMedicines"
+                  placeholder=""
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="txtAllergies">Any Allergies</label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtAllergies"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="col-md-8 mb-3">
+                <label for="txtTestSuggested">Suggested Test </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="txtTestSuggested"
+                  placeholder=""
+                />
+              </div>
+            </div>
+    <button
+            class="btn btn-secondary btn-lg  mt-3 mr-3"
+            id="btnSaveChanges"
+            type="submit"
+            onClick="javascript:window.close()"
+          >
+            Cancel
+          </button>
+            <button
+              class="btn btn-primary  btn-lg mt-3"
+              id="btnEditPatient"
+              type="submit"
+            >
+              Edit Patient
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small ">
+        <ul class="list-inline ">
+          <li class="list-inline-item"><a href="createPatient.html">Add</a></li>
+          <li class="list-inline-item"><a href="landing.html">Home</a></li>
+          <li class="list-inline-item"><a href="listPatient.html">List</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+
+    <script src="src/js/jquery-slim.min.js"></script>
+    <script src="src/js/bootstrap.min.js"></script>
+
+    <!-- Modules -->
+    <script src="src/js/app.js"></script>
+    <script src="src/js/patientDetail.js"></script>
+    <script src="src/js/signOut.js"></script>
+  </body>
+</html>
