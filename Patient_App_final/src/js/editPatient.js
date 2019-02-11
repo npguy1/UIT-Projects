@@ -14,6 +14,12 @@ let txtTestSuggested = document.getElementById("txtTestSuggested");
 
 let btnSaveChanges = document.getElementById("btnSaveChanges");
 
+let btnAddPatient1 = document.getElementById("btnAddPatient1");
+
+
+
+
+
 let currentDate = new Date().toDateString();
 
 var patientID = getUrlVars()["pid"];
@@ -61,17 +67,12 @@ function getPatientDetail(pid) {
         // Selecting Medical from DB query
         var medicalconditionComma = [];
         medicalconditionComma = selectedUser.medicalcondition.split(",");
-        console.log("metical " + medicalconditionComma);
+        /* console.log("metical " + medicalconditionComma); */
         for (var i = 0; i < medicalconditionComma.length; i++) {
           for (var j = 0; j < txtMedicalCondition.length; j++) {
             //console.log("medical condition_out " + medicalconditionComma[i] + " == " + txtMedicalCondition[i].value);
             if (txtMedicalCondition[j].value === medicalconditionComma[i]) {
-              console.log(
-                "medical condition_in " +
-                  medicalconditionComma[i] +
-                  " == " +
-                  txtMedicalCondition[j].value
-              );
+              /* console.log("medical condition_in " + medicalconditionComma[i] + " == " + txtMedicalCondition[j].value); */
 
               txtMedicalCondition[j].checked = true;
             }
@@ -97,6 +98,9 @@ function getPatientDetail(pid) {
 
 //Save Button click  Event
 btnSaveChanges.addEventListener("click", e => {
+
+  console.log("Update Button clicked");
+
   var fullName = txtFullName.value;
   var contactNumber = txtContactNumber.value;
   var dob = txtDob.value;
@@ -105,6 +109,8 @@ btnSaveChanges.addEventListener("click", e => {
   var bp = txtBP.value;
   var allergies = txtAllergies.value;
   var testSuggested = txtTestSuggested.value;
+
+ 
 
   var medicines = [];
 
@@ -172,28 +178,7 @@ btnSaveChanges.addEventListener("click", e => {
 });
 
 
-/* // Sign Up Function
-function SignUp(email, password, username) {
-  // TODO : Add email validation
 
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      addUser(username);
-      console.log(res);
-      console.log("User signed up successfully");
-    })
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(email + "---" + password + "---" + username);
-      console.log(errorMessage);
-
-      // ...
-    });
-} */
 
 
 //Edit Patient funtion

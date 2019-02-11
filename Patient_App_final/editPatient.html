@@ -12,6 +12,9 @@
 
     <title>Patient Information System</title>
 
+    <!-- Checking if user is logged In from on Auth -->
+    <script src="src/js/onAuth.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="src/css/bootstrap.min.css" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
@@ -31,10 +34,7 @@
     <div class="container mt-2">
       <div class="d-flex justify-content-between">
         <h1 class="mb-4">Edit Patient</h1>
-        <div class="text-right">
-          <a href="javascript:signOut();" id="linkSignOut"> Sign Out</a>
-        </div>
-        <!--  <div class="text-right"><span id="userinfo"></span> | <a href="javascript:void(0);" id="linkSignOut" > Sign Out</a></div> -->
+        <div class="text-right small"><span id="userinfo" ></span> | <a href="javascript:void(0);" id="linkSignOut" > Sign Out</a></div>
       </div>
 
       <div class="row">
@@ -353,7 +353,7 @@
            
             <button
             class="btn btn-secondary btn-lg  mt-3 mr-3"
-            id="btnSaveChanges"
+            id="btnCancelChanges"
             type="submit"
             onClick="javascript:history.go(-1)"
           >
@@ -366,7 +366,9 @@
         >
           Save Changes
         </button>
-          </form>
+
+
+         </form>
         </div>
       </div>
       <br />
