@@ -34,59 +34,61 @@
       <div class="d-flex justify-content-between">
         <h1 class="mb-4">Patient Details</h1>
         
-        <div class="text-right">
-          <a href="javascript:void(0);" id="linkSignOut"> Sign Out</a>
-        </div>
-        <!--  <div class="text-right"><span id="userinfo"></span> | <a href="javascript:void(0);" id="linkSignOut" > Sign Out</a></div> -->
+        <div class="text-right small"><span id="userinfo" ></span> | <a href="javascript:void(0);" id="linkSignOut" > Sign Out</a></div>
       </div>
 
       <div class="row">
         <div class="col-md-12 order-md-1 mx-auto">
           <form
-            class="needs-validation"
+            class="needs-validation "
             novalidate
             action="javascript:void(0);"
           >
             <div class="row">
-              <div class="col-md-4 mb-3">
-                <label for="txtFullName">Full name</label>
+              <div class="col-md-12 mb-3 ">
+               <!--  <label for="txtFullName">Full name</label> -->
                 <input
                   type="text"
                   readonly
-                  class="form-control-plaintext"
+                  class="form-control-plaintext patient-name"
                   id="txtFullName"
                   onkeyup="this.value=toTitleCase(this.value)"
                   placeholder=""
                   value=""
                 />
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="txtContactNumber">Contact Number</label>
-                <input
-                  type="text"
-                  readonly
-                  class="form-control-plaintext"
-                  id="txtContactNumber"
-                  placeholder=""
-                  value=""
-                />
-              </div>
-
-              <div class="col-md-4 mb-3">
-                <label for="txtDob">Date of Birth</label>
-
-                <input
-                  type="text"
-                  readonly
-                  class="form-control-plaintext"
-                  id="txtDob"
-                  value=""
-                />
-              </div>
+              
             </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                  <label for="txtContactNumber">Contact Number</label>
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control-plaintext"
+                    id="txtContactNumber"
+                    placeholder=""
+                    value=""
+                  />
+                </div>
+  
+                <div class="col-md-4">
+                  <label for="txtDob">Date of Birth</label>
+  
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control-plaintext"
+                    id="txtDob"
+                    value=""
+                  />
+                </div>
+              </div>
+              <hr>
 
             <div class="row">
-              <div class="col-md-8 mb-3">
+              <div class="col-md-4">
                 <label for="txtVisitPurpose">Purpose of Visit</label>
                 <input
                   type="text"
@@ -97,7 +99,7 @@
                 />
               </div>
 
-              <div class="col-md-2 mb-3">
+              <div class="col-md-1 mb-3">
                 <label for="txtFever">Fever</label>
                 <input
                   type="text"
@@ -108,7 +110,7 @@
                 />
               </div>
 
-              <div class="col-md-2 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="txtBP">Blood Pressure </label>
                 <input
                   type="text"
@@ -133,10 +135,10 @@
               </div>
             </div>
 
-            <h5 class="mb-3">Prescribe Medicine</h5>
+           
             <div class="row">
               <div class="col-md-12 mb-3">
-                <label for="txtMedicines">Medicine 1</label>
+                <label for="txtMedicines">Prescribe Medicine</label>
                 <input
                   type="text"
                   readonly
@@ -171,20 +173,20 @@
                 />
               </div>
             </div>
-            <button
+    <button
             class="btn btn-secondary btn-lg  mt-3 mr-3"
             id="btnSaveChanges"
             type="submit"
-            onClick="javascript:history.go(-1)"
+            onClick="javascript:window.close()"
           >
             Cancel
           </button>
             <button
-              class="btn btn-primary btn-lg mt-3"
+              class="btn btn-primary  btn-lg mt-3"
               id="btnEditPatient"
               type="submit"
             >
-              Edit Patient Information
+              Edit Patient
             </button>
           </form>
         </div>
